@@ -243,14 +243,14 @@ prompt_status() {
 
 #AWS Profile:
 # - display current AWS_PROFILE name
-# - displays yellow on red if profile name contains 'production' or
+# - displays yellow on red if profile name starts with 'prod-' or
 #   ends in '-prod'
 # - displays black on green otherwise
 prompt_aws() {
   # always show AWS profile (I turn off the flag to stop the aws plugin showing it as well)
   [[ -z "$AWS_PROFILE" ]] && return
   case "$AWS_PROFILE" in
-    *-prod|*production*) prompt_segment red yellow  "AWS: ${AWS_PROFILE:gs/%/%%}" ;;
+    *-prod|prod-*) prompt_segment red yellow  "AWS: ${AWS_PROFILE:gs/%/%%}" ;;
     *) prompt_segment green black "AWS: ${AWS_PROFILE:gs/%/%%}" ;;
   esac
 }
