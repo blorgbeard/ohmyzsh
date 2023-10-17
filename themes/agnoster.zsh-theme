@@ -88,7 +88,11 @@ prompt_end() {
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
-  if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+  # allow .zshrc to set up an override for this segment
+  # format is ("background" "foreground" "content")
+  if [[ -n "$PROMPT_CONTEXT_OVERRIDE" ]]; then
+    prompt_segment $PROMPT_CONTEXT_OVERRIDE
+  elif [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     prompt_segment black default "%(!.%{%F{yellow}%}.)%n@%m"
   fi
 }
